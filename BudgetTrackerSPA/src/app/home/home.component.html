@@ -1,0 +1,90 @@
+<div class="rounded">
+    <!-- this toggle button shows/hides the adduser form -->
+    <div class="btn-group btn-group-toggle">
+        <label class="btn-primary" ngbButtonLabel>
+            <input type="checkbox" ngbButton [(ngModel)]="addchecked"> AddUser
+        </label>
+    </div>
+
+    <!-- adduser form -->
+    <form *ngIf="addchecked == true" (ngSubmit)="addUser()">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input [(ngModel)]="user.email" name="email" type="email" class="form-control" id="email"
+                aria-describedby="emailHelp" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input [(ngModel)]="user.password" name="password" type="password" class="form-control" id="password"
+                placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="Fullname">Fullname</label>
+            <input [(ngModel)]="user.fullname" name="fullname" type="Fullname" class="form-control" id="Fullname"
+                placeholder="Fullname">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </form>
+
+
+    <div class="container-fluid">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Fullname</th>
+                    <th scope="col">JoinedOn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; index as i;">
+                    <!-- go to user component while passing the user id -->
+                    <td><a [routerLink]="['/users/', user?.id ]">{{user.id}}</a></td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.password}}</td>
+                    <td>{{user.fullname}}</td>
+                    <td>{{user.joinedOn | date : 'yyyy-MM-dd'}}</td>
+                    <!-- this data shows if the Edit button is clicked -->
+                    <td *ngIf="enableEdit && enableEditIndex == i">
+                        <form (ngSubmit)="updateUser()">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input [(ngModel)]="updateduser.email" name="email" type="email" class="form-control" id="updatedemail"
+                                    aria-describedby="emailHelp" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input [(ngModel)]="updateduser.password" name="password" type="password" class="form-control" id="updatedpassword"
+                                    placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="Fullname">Fullname</label>
+                                <input [(ngModel)]="updateduser.fullname" name="fullname" type="Fullname" class="form-control" id="updatedFullname"
+                                    placeholder="Fullname">
+                            </div>
+                            <div class="form-group">
+                                <label for="joinedOn">JoinedOn</label>
+                                <input [(ngModel)]="updateduser.joinedOn" name="joinedOn" type="joinedOn" class="form-control" id="updatedjoinedOn"
+                                    placeholder="JoinedOn">
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit" />
+                        </form>
+                    </td>
+                    <!-- cancel button shows for the selected row and if enableEdit is true
+                    clicking it changes enableEdit back to false -->
+                    <td><button *ngIf="enableEdit && enableEditIndex == i" (click)="enableEdit=false"
+                            class="btn page-secondary-action-btn">Cancel</button></td>
+                    <!-- the edit button sets enableEditIndex to the row index and also sets enableEdit to true -->
+                    <td><button class="table-row-action edit-action" *ngIf="!enableEdit"
+                            (click)="enableEditMethod($event, i)">
+                            Edit</button></td>
+                    <td><button type="submit" class="btn btn-primary" (click)="deleteUser(user?.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
