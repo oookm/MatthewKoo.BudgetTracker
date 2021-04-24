@@ -33,7 +33,7 @@ export class UserComponent implements OnInit {
       }
     )
   }
-  enableEditMethod(e: any) {
+  enableEditMethod() {
     this.enableEdit = true;
   }
   updateUser() {

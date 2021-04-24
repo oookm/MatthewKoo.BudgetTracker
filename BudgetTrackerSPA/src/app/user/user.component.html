@@ -47,7 +47,7 @@
                     <td><button *ngIf="enableEdit" (click)="enableEdit=false"
                             class="btn page-secondary-action-btn">Cancel</button></td>
                     <td><button class="table-row-action edit-action" *ngIf="!enableEdit"
-                            (click)="enableEditMethod($event)">
+                            (click)="enableEditMethod()">
                             Edit</button></td>
                 </tr>
             </tbody>
@@ -113,3 +113,7 @@
     </div>
 
 </div>
+
+
+
+
