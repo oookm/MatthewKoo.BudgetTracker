@@ -1,9 +1,9 @@
 export interface Income {
-    id: number,
-    userId: number,
+    id?: number,
+    userId?: number,
     amount: number,
-    description: string,
-    incomeDate: Date,
-    remarks: string
+    description?: string,
+    incomeDate?: Date,
+    remarks?: string
 }
   

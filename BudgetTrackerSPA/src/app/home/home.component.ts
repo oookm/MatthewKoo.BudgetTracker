@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   addchecked = false;
   enableEdit = false;
   enableEditIndex = null;
-  thisuser: User = {
+  user: User = {
     email: '',
     password: '',
   }
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     )
   }
   addUser() {
-    this.userService.addUser(this.thisuser).subscribe();
+    this.userService.addUser(this.user).subscribe();
   }
   deleteUser(id: number | undefined) {
     this.userService.deleteUser(id).subscribe();

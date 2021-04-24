@@ -1,9 +1,9 @@
 export interface Expenditure {
-    id: number,
-    userId: number,
+    id?: number,
+    userId?: number,
     amount: number,
-    description: string,
-    expDate: Date,
-    remarks: string
+    description?: string,
+    expDate?: Date,
+    remarks?: string
 }
   
