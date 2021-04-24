@@ -15,9 +15,13 @@ namespace MatthewKoo.BudgetTracker.Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly IAsyncRepository<Expenditure> _expenditureRepository;
+        private readonly IAsyncRepository<Income> _incomeRepository;
+        public UserService(IUserRepository userRepository, IAsyncRepository<Expenditure> expenditureRepository, IAsyncRepository<Income> incomeRepository)
         {
             _userRepository = userRepository;
+            _expenditureRepository = expenditureRepository;
+            _incomeRepository = incomeRepository;
         }
         // get all the users and their details only
         public async Task<List<UserResponseModel>> GetAllAsync()
@@ -102,11 +106,22 @@ namespace MatthewKoo.BudgetTracker.Infrastructure.Services
         }
         public async Task<bool> DeleteUser(int userId)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
-            if (user == null)
+            var userdetails = await GetUserAsync(userId);
+            if (userdetails == null)
             {
                 throw new NotFoundException("User Not Found");
             }
+            foreach(var expenditure in userdetails.Expenditures)
+            {
+                var exp = await _expenditureRepository.GetByIdAsync(expenditure.Id);
+                await _expenditureRepository.DeleteAsync(exp);
+            }
+            foreach(var income in userdetails.Incomes)
+            {
+                var inc = await _incomeRepository.GetByIdAsync(income.Id);
+                await _incomeRepository.DeleteAsync(inc);
+            }
+            var user = await _userRepository.GetByIdAsync(userdetails.Id);
             await _userRepository.DeleteAsync(user);
             return true;
         }
