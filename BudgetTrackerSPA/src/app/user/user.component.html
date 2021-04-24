@@ -1,5 +1,6 @@
 <div class="rounded">
 
+    <!-- the user section -->
     <div class="container-fluid">
         <table class="table table-striped">
             <thead>
@@ -62,7 +63,7 @@
     </label>
 </div>
 
-<!-- addincome form -->
+<!-- addexpenditure form -->
 <form *ngIf="addcheckedexpenditure == true" (ngSubmit)="addExpenditure()">
     <div class="form-group">
         <label for="amount">Amount</label>
@@ -134,12 +135,9 @@
                             <input type="submit" class="btn btn-primary" value="Submit" />
                         </form>
                     </td>
-                    <!-- cancel button shows for the selected row and if enableEdit is true
-                                        clicking it changes enableEdit back to false -->
                     <td><button *ngIf="enableEditExpenditure && enableEditIndexExpenditure == i"
                             (click)="enableEditExpenditure=false" class="btn page-secondary-action-btn">Cancel</button>
                     </td>
-                    <!-- the edit button sets enableEditIndex to the row index and also sets enableEdit to true -->
                     <td><button class="table-row-action edit-action" *ngIf="!enableEditExpenditure"
                             (click)="enableEditMethodExpenditure(i)">
                             Edit</button></td>
@@ -235,12 +233,9 @@
                             <input type="submit" class="btn btn-primary" value="Submit" />
                         </form>
                     </td>
-                    <!-- cancel button shows for the selected row and if enableEdit is true
-                                                            clicking it changes enableEdit back to false -->
                     <td><button *ngIf="enableEditIncome && enableEditIndexIncome == i"
                             (click)="enableEditIncome=false" class="btn page-secondary-action-btn">Cancel</button>
                     </td>
-                    <!-- the edit button sets enableEditIndex to the row index and also sets enableEdit to true -->
                     <td><button class="table-row-action edit-action" *ngIf="!enableEditIncome"
                             (click)="enableEditMethodIncome(i)">
                             Edit</button></td>

@@ -23,7 +23,8 @@ namespace MatthewKoo.BudgetTracker.Infrastructure.Services
             _expenditureRepository = expenditureRepository;
             _incomeRepository = incomeRepository;
         }
-        // get all the users and their details only
+        // get all the users and their details only to return a list of 
+        // userresponsemodel to show in view
         public async Task<List<UserResponseModel>> GetAllAsync()
         {
             var users = await _userRepository.ListAllAsync();
@@ -45,7 +46,8 @@ namespace MatthewKoo.BudgetTracker.Infrastructure.Services
             return result;
         }
 
-        // get all the details for one users
+        // get all the details for one users into one model with a list of
+        // the expenditure/income models inside to display in view
         public async Task<UserDetailsResponseModel> GetUserAsync(int userId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
@@ -92,6 +94,8 @@ namespace MatthewKoo.BudgetTracker.Infrastructure.Services
             };
             return response;
         }
+
+        // take in user model to create a user entity and send to repository
         public async Task<bool> CreateUser(UserCreateRequestModel model)
         {
             var user = new User
@@ -106,11 +110,13 @@ namespace MatthewKoo.BudgetTracker.Infrastructure.Services
         }
         public async Task<bool> DeleteUser(int userId)
         {
+            // get a model with the associated expenditures/incomes
             var userdetails = await GetUserAsync(userId);
             if (userdetails == null)
             {
                 throw new NotFoundException("User Not Found");
             }
+            // iterate through the expenditures/incomes and delete each one
             foreach(var expenditure in userdetails.Expenditures)
             {
                 var exp = await _expenditureRepository.GetByIdAsync(expenditure.Id);
@@ -121,10 +127,12 @@ namespace MatthewKoo.BudgetTracker.Infrastructure.Services
                 var inc = await _incomeRepository.GetByIdAsync(income.Id);
                 await _incomeRepository.DeleteAsync(inc);
             }
+            // delete user
             var user = await _userRepository.GetByIdAsync(userdetails.Id);
             await _userRepository.DeleteAsync(user);
             return true;
         }
+        // take in model to create user entity to send to repository
         public async Task<bool> UpdateUser(UserUpdateRequestModel model)
         {
             var updatedUser = new User

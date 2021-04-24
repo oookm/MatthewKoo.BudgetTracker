@@ -26,7 +26,7 @@
         <input type="submit" class="btn btn-primary" value="Submit" />
     </form>
 
-
+    <!-- main body -->
     <div class="container-fluid">
         <table class="table table-striped">
             <thead>
@@ -79,6 +79,7 @@
                     <!-- the edit button sets enableEditIndex to the row index and also sets enableEdit to true -->
                     <td><button class="table-row-action edit-action" *ngIf="!enableEdit" (click)="enableEditMethod(i)">
                             Edit</button></td>
+                    <!-- delete button calls the deleteUser method on click and passes the row's user.id -->
                     <td><button type="submit" class="btn btn-primary" (click)="deleteUser(user?.id)">Delete</button>
                     </td>
                 </tr>

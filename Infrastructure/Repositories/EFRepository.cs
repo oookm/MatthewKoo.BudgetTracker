@@ -20,22 +20,20 @@ namespace Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-
-
+        // get entity by id 
         public virtual async Task<T> GetByIdAsync(int id)
         {
             var entity = await _dbContext.Set<T>().FindAsync(id);
             return entity;
         }
 
-
-
+        // get list of entities like users
         public virtual async Task<IEnumerable<T>> ListAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-
+        // add entity to database
         public virtual async Task<T> AddAsync(T entity)
         {
             _dbContext.Set<T>().Add(entity);
@@ -43,8 +41,7 @@ namespace Infrastructure.Repositories
             return entity;
         }
 
-
-
+        // update entity in database with matching id
         public virtual async Task<T> UpdateAsync(T entity)
         {
             _dbContext.Set<T>().Update(entity);
@@ -52,31 +49,12 @@ namespace Infrastructure.Repositories
             return entity;
         }
 
-
-
+        // delete entity from database 
         public virtual async Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
 
-        // example input is in userservice; where is a boolean expression like 
-        // p => p.UserId == _currentUserService.UserId,
-        // includes is a list of objects like p => p.Movie
-        // params means it takes a variable amount of arguments
-        public async Task<IEnumerable<T>> ListAllWithIncludesAsync(Expression<Func<T, bool>> @where,
-            params Expression<Func<T, object>>[] includes)
-        {
-            var query = _dbContext.Set<T>().AsQueryable();
-
-            if (includes != null)
-            {
-                foreach (Expression<Func<T, object>> navigationProperty in includes)
-                {
-                    query = query.Include(navigationProperty);
-                }
-            }
-            return await query.Where(@where).ToListAsync();
-        }
     }
 }

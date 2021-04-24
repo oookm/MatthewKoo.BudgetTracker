@@ -45,7 +45,6 @@ export class ApiService {
     );
   }
 
-  // example for login, takes login path and model input to post to api url
   post(path: string, resource: any, options?: any ): Observable<any> {
 
     return this.http.post(`${environment.apiUrl}${path}`, resource).pipe(

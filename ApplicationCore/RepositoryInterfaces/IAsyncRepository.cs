@@ -16,7 +16,5 @@ namespace MatthewKoo.BudgetTracker.ApplicationCore.RepositoryInterfaces
         Task DeleteAsync(T entity);
 
         // 
-        Task<IEnumerable<T>> ListAllWithIncludesAsync(Expression<Func<T, bool>> where, params
-            Expression<Func<T, object>>[] includes);
     }
 }

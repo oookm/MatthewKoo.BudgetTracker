@@ -19,7 +19,7 @@ namespace MatthewKoo.BudgetTracker.Infrastructure.Repositories
 
         }
 
-        // return user along with Incomes and Expenditures
+        // return user entity along with associated Incomes and Expenditures
         public override async Task<User> GetByIdAsync(int id)
         {
             var user = await _dbContext.Users.Where(u => u.Id == id).Include(u => u.Incomes)
