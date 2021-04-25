@@ -1,6 +1,7 @@
 ﻿using MatthewKoo.BudgetTracker.ApplicationCore.Entities;
 using MatthewKoo.BudgetTracker.ApplicationCore.Exceptions;
 using MatthewKoo.BudgetTracker.ApplicationCore.Models.Request;
+using MatthewKoo.BudgetTracker.ApplicationCore.Models.Response;
 using MatthewKoo.BudgetTracker.ApplicationCore.RepositoryInterfaces;
 using MatthewKoo.BudgetTracker.ApplicationCore.ServiceInterfaces;
 using System;
@@ -56,6 +57,28 @@ namespace MatthewKoo.BudgetTracker.Infrastructure.Services
             };
             await _expenditureRepository.UpdateAsync(updatedExpenditure);
             return true;
+        }
+
+        public async Task<List<ExpenditureResponseModel>> GetAllAsync()
+        {
+            var expenditures = await _expenditureRepository.ListAllAsync();
+            var result = new List<ExpenditureResponseModel>();
+
+            foreach (var expenditure in expenditures)
+            {
+                result.Add(
+                    new ExpenditureResponseModel
+                    {
+                        Amount = expenditure.Amount,
+                        Description = expenditure.Description,
+                        ExpDate = expenditure.ExpDate,
+                        Id = expenditure.Id,
+                        Remarks = expenditure.Remarks,
+                        UserId = expenditure.UserId,
+                    });
+            }
+
+            return result;
         }
     }
 }

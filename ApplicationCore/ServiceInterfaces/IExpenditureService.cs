@@ -1,4 +1,5 @@
 ﻿using MatthewKoo.BudgetTracker.ApplicationCore.Models.Request;
+using MatthewKoo.BudgetTracker.ApplicationCore.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace MatthewKoo.BudgetTracker.ApplicationCore.ServiceInterfaces
         Task<bool> CreateExpenditure(ExpenditureCreateRequestModel model);
         Task<bool> DeleteExpenditure(int expenditureId);
         Task<bool> UpdateExpenditure(ExpenditureUpdateRequestModel model);
+        Task<List<ExpenditureResponseModel>> GetAllAsync();
     }
 }

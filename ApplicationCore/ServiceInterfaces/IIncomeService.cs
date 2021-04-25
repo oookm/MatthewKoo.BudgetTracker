@@ -1,4 +1,5 @@
 ﻿using MatthewKoo.BudgetTracker.ApplicationCore.Models.Request;
+using MatthewKoo.BudgetTracker.ApplicationCore.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace MatthewKoo.BudgetTracker.ApplicationCore.ServiceInterfaces
         Task<bool> CreateIncome(IncomeCreateRequestModel model);
         Task<bool> DeleteIncome(int incomeId);
         Task<bool> UpdateIncome(IncomeUpdateRequestModel model);
+        Task<List<IncomeResponseModel>> GetAllAsync();
     }
 }

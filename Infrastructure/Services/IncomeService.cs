@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MatthewKoo.BudgetTracker.ApplicationCore.Models.Response;
 
 namespace MatthewKoo.BudgetTracker.Infrastructure.Services
 {
@@ -56,6 +57,28 @@ namespace MatthewKoo.BudgetTracker.Infrastructure.Services
             };
             await _incomeRepository.UpdateAsync(updatedIncome);
             return true;
+        }
+
+        public async Task<List<IncomeResponseModel>> GetAllAsync()
+        {
+            var incomes = await _incomeRepository.ListAllAsync();
+            var result = new List<IncomeResponseModel>();
+
+            foreach (var income in incomes)
+            {
+                result.Add(
+                    new IncomeResponseModel
+                    {
+                        Amount = income.Amount,
+                        Description = income.Description,
+                        Id = income.Id,
+                        IncomeDate = income.IncomeDate,
+                        Remarks = income.Remarks,
+                        UserId = income.UserId, 
+                    });
+            }
+
+            return result;
         }
     }
 }

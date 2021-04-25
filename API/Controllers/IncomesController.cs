@@ -39,5 +39,12 @@ namespace MatthewKoo.BudgetTracker.API.Controllers
             await _incomeService.UpdateIncome(model);
             return Ok();
         }
+        [HttpGet]
+        [Route("incomes")]
+        public async Task<IActionResult> GetAllIncomes()
+        {
+            var incomes = await _incomeService.GetAllAsync();
+            return Ok(incomes);
+        }
     }
 }
