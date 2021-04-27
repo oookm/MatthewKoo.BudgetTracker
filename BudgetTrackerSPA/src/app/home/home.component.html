@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of users; index as i;">
+                <tr *ngFor="let user of users?.reverse(); index as i;">
                     <!-- go to user component while passing the user id -->
                     <td><a [routerLink]="['/users/', user?.id ]">{{user.id}}</a></td>
                     <td>{{user.email}}</td>

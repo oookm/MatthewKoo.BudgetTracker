@@ -102,7 +102,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let expenditure of user?.expenditures; index as i;">
+                <tr *ngFor="let expenditure of user?.expenditures?.reverse(); index as i;">
                     <td>{{expenditure?.id}}</td>
                     <td>{{expenditure?.userId}}</td>
                     <td>{{expenditure?.amount}}</td>
@@ -200,7 +200,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let income of user?.incomes; index as i;">
+                <tr *ngFor="let income of user?.incomes?.reverse(); index as i;">
                     <td>{{income?.id}}</td>
                     <td>{{income?.userId}}</td>
                     <td>{{income?.amount}}</td>
