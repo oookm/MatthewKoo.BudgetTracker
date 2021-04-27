@@ -79,7 +79,9 @@ export class UserComponent implements OnInit {
     this.userService.updateExpenditure(this.updatedexpenditure).subscribe();
   }
   deleteExpenditure(id: number | undefined) {
-    this.userService.deleteExpenditure(id).subscribe();
+    if(confirm("Are you sure you want to delete?")) {
+      this.userService.deleteExpenditure(id).subscribe();
+    }
   }
   addIncome() {
     this.userService.addIncome(this.income).subscribe()
@@ -90,6 +92,8 @@ export class UserComponent implements OnInit {
     this.userService.updateIncome(this.updatedincome).subscribe();
   }
   deleteIncome(id: number | undefined) {
-    this.userService.deleteIncome(id).subscribe();
+    if(confirm("Are you sure you want to delete?")) {
+      this.userService.deleteIncome(id).subscribe();
+    }
   }
 }

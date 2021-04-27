@@ -36,7 +36,9 @@ export class HomeComponent implements OnInit {
     this.userService.addUser(this.user).subscribe();
   }
   deleteUser(id: number | undefined) {
-    this.userService.deleteUser(id).subscribe();
+    if(confirm("Are you sure you want to delete?")) {
+      this.userService.deleteUser(id).subscribe();
+    }
   }
   enableEditMethod(i: any) {
     this.enableEdit = true;
