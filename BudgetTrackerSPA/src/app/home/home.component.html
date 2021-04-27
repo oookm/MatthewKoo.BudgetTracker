@@ -31,7 +31,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Row</th>
                     <th scope="col">Email</th>
                     <th scope="col">Password</th>
                     <th scope="col">Fullname</th>
@@ -41,7 +41,8 @@
             <tbody>
                 <tr *ngFor="let user of users?.reverse(); index as i;">
                     <!-- go to user component while passing the user id -->
-                    <td><a [routerLink]="['/users/', user?.id ]">{{user.id}}</a></td>
+                    <!-- <td><a [routerLink]="['/users/', user?.id ]">{{user.id}}</a></td> -->
+                    <td><a [routerLink]="['/users/', user?.id ]">{{i+1}}</a></td>
                     <td>{{user.email}}</td>
                     <td>{{user.password}}</td>
                     <td>{{user.fullname}}</td>
